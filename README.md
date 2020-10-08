@@ -1,0 +1,1 @@
+## GraphQL Exercise with the JSONPlaceholder API
