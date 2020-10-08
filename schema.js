@@ -5,7 +5,7 @@ const {
     GraphQLString,
     GraphQLInt,
     GraphQLSchema,
-    GraphQLInputObjectType,
+    GraphQLList,
 } = require('graphql');
 
 const apiURL = 'https://jsonplaceholder.typicode.com/';
@@ -78,6 +78,18 @@ const RootQuery = new GraphQLObjectType({
             },
             resolve(parentValue, args) {
                 return axios.get(`${apiURL}comments/${args.id}`)
+                    .then(response => response.data)
+            }
+        },
+        comments: {
+            type: new GraphQLList(CommentType),
+            args: {
+                postId: {
+                    type: GraphQLInt
+                }
+            },
+            resolve(parentValue, args) {
+                return axios.get(`${apiURL}comments?postId=${args.postId}`)
                     .then(response => response.data)
             }
         }
