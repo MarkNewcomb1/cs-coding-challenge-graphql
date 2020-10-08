@@ -2,6 +2,10 @@
 
 ### To Run:
 
+Go to [deployed Heroku app](https://charter-graphql-challenge.herokuapp.com/graphql) 
+
+...OR, to run locally:
+
 `npm install` then
 
 `npm run dev:server`
