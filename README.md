@@ -83,3 +83,16 @@ mutation{
     }
 }
 ```
+## To utilize the Github single sign on:
+
+- create a `.env` file in the root, place the following in the file:
+
+```
+GITHUB_CLIENT_ID = 'yourclientid'
+GITHUB_CLIENT_SECRET = 'yoursecret'
+```
+You can get these by installing the Charter GraphQL app at https://github.com/settings/apps/charter-graphql
+
+- run this locally using `npm run dev:server`
+- go to http://localhost:4000/login/github
+- Authorize the Github app, and it should take you back to your details.
