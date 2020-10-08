@@ -96,7 +96,36 @@ const RootQuery = new GraphQLObjectType({
     }
 });
 
+const Mutation = new GraphQLObjectType({
+    name: 'MutationType',
+    fields: {
+        deletePost: {
+            type: PostType,
+            args: {
+                id: { type: GraphQLInt }
+            },
+            resolve(parentValue, args) {
+                return axios.delete(`${apiURL}posts/${args.id}`)
+                    .then(response => response.data)
+            }
+        },
+        updatePost: {
+            type: PostType,
+            args: {
+                id: { type: GraphQLInt },
+                title: { type: GraphQLString },
+                body: { type: GraphQLString }
+            },
+            resolve(parentValue, args) {
+                return axios.patch(`${apiURL}posts/${args.id}`, args)
+                    .then(response => response.data)
+            }
+        }
+    }
+});
+
 
 module.exports = new GraphQLSchema({
+    mutation: Mutation,
     query: RootQuery
 });
