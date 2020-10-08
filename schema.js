@@ -32,6 +32,16 @@ const PostType = new GraphQLObjectType({
     })
 });
 
+const CommentType = new GraphQLObjectType({
+    name: 'Comment',
+    fields: () => ({
+        postId: { type: GraphQLInt },
+        id: { type: GraphQLInt },
+        email: { type: GraphQLString },
+        body: { type: GraphQLString }
+    })
+});
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -56,6 +66,18 @@ const RootQuery = new GraphQLObjectType({
             },
             resolve(parentValue, args) {
                 return axios.get(`${apiURL}posts/${args.id}`)
+                    .then(response => response.data)
+            }
+        },
+        comment: {
+            type: CommentType,
+            args: {
+                id: {
+                    type: GraphQLInt
+                }
+            },
+            resolve(parentValue, args) {
+                return axios.get(`${apiURL}comments/${args.id}`)
                     .then(response => response.data)
             }
         }
